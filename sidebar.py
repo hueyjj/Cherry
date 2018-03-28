@@ -56,15 +56,20 @@ class Sidebar(QWidget):
     def __init__(self, parent):
         super(Sidebar, self).__init__(parent)
 
-        self.homeAction = QAction(QIcon("./icons/icon0.png"), "Home", self)
-        self.setFixedSize(90, 90)
-        self.setMinimumSize(90, 90)
+        self.buttonSize = 90
+
+        self.homeAction = QAction(QIcon("./icons/home.png"), "Home", self)
+        self.progressAction = QAction(QIcon("./icons/progress.png"), "Progress", self)
+        self.historyAction = QAction(QIcon("./icons/history.png"), "History", self)
+
+        self.actionList = [self.homeAction, self.progressAction, self.historyAction]
 
         self.addAction(self.homeAction)
         self.setObjectName("sidebar")
 
-    def minimumSize(self):
-        return QSize(90, 90)
+    # Set minimum size of sidebar
+    def minimumSizeHint(self):
+        return self.buttonSize * QSize(1, len(self.actionList))
 
     def paintEvent(self, event):
         p = QPainter(self)
@@ -73,25 +78,26 @@ class Sidebar(QWidget):
         font.setFamily("Helvetica Neue")
         p.setFont(font)
 
-        action_y = 0
-        action_height = 90
+        actionY = 0
+        actionHeight = 90
         p.fillRect(QRect(), QColor(100, 100, 100));
-        actionRect = QRect(0, action_y, event.rect().width(), action_height)
 
-        if self.homeAction.isChecked():
-            p.fillRect(actionRect, QColor(35, 35, 35))
+        for action in self.actionList:
+            actionRect = QRect(0, actionY, event.rect().width(), actionHeight)
 
-        #if self.homeAction == mOverAction:
-        #    p.fillRect(actionRect, QColor(150, 150, 150))
+            if action.isChecked():
+                p.fillRect(actionRect, QColor(35, 35, 35))
 
-        p.setPen(QColor(255, 255, 255))
-        size = p.fontMetrics().size(Qt.TextSingleLine, self.homeAction.text())
-        actionTextRect = QRect(QPoint(actionRect.width() / 2 - size.width() / 2, actionRect.bottom() - size.height() - 5), size)
-        p.drawText(actionTextRect, Qt.AlignCenter, self.homeAction.text())
+            #if action == mOverAction:
+            #    p.fillRect(actionRect, QColor(150, 150, 150))
 
-        #actionIconRect = QRect(0, action_y + 10, actionRect.width(), actionRect.height()-2 * actionTextRect.height() - 10)
-        actionIconRect = QRect(0, 0, actionRect.width(), actionRect.height()-2 * actionTextRect.height() - 10)
-        actionIcon = QIcon(self.homeAction.icon())
-        actionIcon.paint(p, actionIconRect)
+            p.setPen(QColor(255, 255, 255))
+            size = p.fontMetrics().size(Qt.TextSingleLine, action.text())
+            actionTextRect = QRect(QPoint(actionRect.width() / 2 - size.width() / 2, actionRect.bottom() - size.height() - 5), size)
+            p.drawText(actionTextRect, Qt.AlignCenter, action.text())
 
-        action_y += actionRect.height()
+            actionIconRect = QRect(0, actionY + 10, actionRect.width(), actionRect.height()-2 * actionTextRect.height() - 10)
+            actionIcon = QIcon(action.icon())
+            actionIcon.paint(p, actionIconRect)
+
+            actionY += actionRect.height()
