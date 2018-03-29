@@ -37,6 +37,8 @@ from PyQt5.QtWidgets import (
     QToolButton,
     QMainWindow,
     QAction,
+    QStyle,
+    QStyleOption,
 )
 
 from PyQt5.QtGui import (
@@ -51,39 +53,83 @@ from PyQt5.QtGui import (
 
 
 class Sidebar(QWidget):
+    
+    actionChanged = pyqtSignal(int)
 
     # Widget parameter for extracting information from UI widget if necessary
     def __init__(self, parent):
         super(Sidebar, self).__init__(parent)
 
-        self.buttonSize = 90
+        # Home, progress, history, etc. width and height
+        self.actionWidth = 90
+        self.actionHeight = 90
 
         self.homeAction = QAction(QIcon("./icons/home.png"), "Home", self)
         self.progressAction = QAction(QIcon("./icons/progress.png"), "Progress", self)
         self.historyAction = QAction(QIcon("./icons/history.png"), "History", self)
 
-        self.actionList = [self.homeAction, self.progressAction, self.historyAction]
+        self.actionList = [
+            self.homeAction,
+            self.progressAction,
+            self.historyAction,
+        ]
 
-        self.addAction(self.homeAction)
+        for action in self.actionList:
+            self.addAction(action)
+
+        self.selectedAction = 0
+
+        self.setStyleSheet("background-color:black;")
         self.setObjectName("sidebar")
+
+    def setSelectedAction(self, index):
+        self.selectedAction = index
+        # Emit signal to tell others that they should be in a home widget
+        self.actionChanged.emit(index)
+
+    # Finds which action that the point lies in
+    def actionAt(self, at):
+        actionY = 0
+        for action in self.actionList:
+            actionRect = QRect(0, actionY, self.actionWidth, self.actionHeight)
+            if actionRect.contains(at):
+                return action
+            actionY += actionRect.height()
+        return None
 
     # Set minimum size of sidebar
     def minimumSizeHint(self):
-        return self.buttonSize * QSize(1, len(self.actionList))
+        return QSize(self.actionWidth, self.actionHeight * len(self.actionList))
+    
+    def mousePressEvent(self, event):
+        action = self.actionAt(event.pos())
+        #if action:
+        #    print("x: " + str(event.pos().x()) + " y: " + str(event.pos().y()) + " " + action.text() + " pressed")
+        # FIXME Programmically assign index 
+        if action == self.homeAction:
+            self.setSelectedAction(0)
+        elif action == self.progressAction:
+            self.setSelectedAction(1)
+        elif action == self.historyAction:
+            self.setSelectedAction(2)
 
     def paintEvent(self, event):
         p = QPainter(self)
 
+        # Need this configuration to enable stylesheets for subclasses of QWidgets
+        opt = QStyleOption()
+        opt.initFrom(self)
+        self.style().drawPrimitive(QStyle.PE_Widget, opt, p, self)
+
+        # Set font
         font = QFont(p.font())
         font.setFamily("Helvetica Neue")
         p.setFont(font)
 
         actionY = 0
-        actionHeight = 90
-        p.fillRect(QRect(), QColor(100, 100, 100));
 
         for action in self.actionList:
-            actionRect = QRect(0, actionY, event.rect().width(), actionHeight)
+            actionRect = QRect(0, actionY, self.actionWidth, self.actionHeight)
 
             if action.isChecked():
                 p.fillRect(actionRect, QColor(35, 35, 35))
@@ -91,13 +137,16 @@ class Sidebar(QWidget):
             #if action == mOverAction:
             #    p.fillRect(actionRect, QColor(150, 150, 150))
 
+            # Draw text for button
             p.setPen(QColor(255, 255, 255))
             size = p.fontMetrics().size(Qt.TextSingleLine, action.text())
             actionTextRect = QRect(QPoint(actionRect.width() / 2 - size.width() / 2, actionRect.bottom() - size.height() - 5), size)
             p.drawText(actionTextRect, Qt.AlignCenter, action.text())
 
-            actionIconRect = QRect(0, actionY + 10, actionRect.width(), actionRect.height()-2 * actionTextRect.height() - 10)
+            # Draw button
+            actionIconRect = QRect(0, actionY + 10, actionRect.width(), actionRect.height() - 2 * actionTextRect.height() - 10)
             actionIcon = QIcon(action.icon())
             actionIcon.paint(p, actionIconRect)
 
+            # Move to next button location
             actionY += actionRect.height()
