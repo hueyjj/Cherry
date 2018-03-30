@@ -67,9 +67,9 @@ class Sidebar(QWidget):
         self.actionHeight = 90
 
         dirname = os.path.dirname(__file__)
-        homeIconPath = os.path.join(dirname, "../../icons/home.png")
-        progressIconPath = os.path.join(dirname, "../../icons/progress.png")
-        historyIconPath = os.path.join(dirname, "../../icons/history.png")
+        homeIconPath = os.path.join(dirname, "../../icons/cherry.png")
+        progressIconPath = os.path.join(dirname, "../../icons/tree.png")
+        historyIconPath = os.path.join(dirname, "../../icons/roots.png")
         self.homeAction = QAction(QIcon(homeIconPath), "Home", self)
         self.progressAction = QAction(QIcon(progressIconPath), "Progress", self)
         self.historyAction = QAction(QIcon(historyIconPath), "History", self)
