@@ -15,6 +15,7 @@ import youtube_dl
 
 class MetaInformationSignal(QObject):
     metaDownloaded = pyqtSignal(dict)
+    unableToRetrieveMeta = pyqtSignal(str)
 
 class MetaInformation(QRunnable):
     ''' Stores meta information of the current youtube link '''
@@ -31,12 +32,19 @@ class MetaInformation(QRunnable):
             self.signal.metaDownloaded.emit(meta)
         else:
             # FIXME Tell whoever connected that there is not information some other way
-            self.signal.metaDownloaded.emit({}) 
+            self.signal.unableToRetrieveMeta.emit(self.url) 
 
     def _downloadInformation(self):
         if self.url:
             with youtube_dl.YoutubeDL() as ytdl:
-                meta = ytdl.extract_info(self.url, download=False)
+                try:
+                    meta = ytdl.extract_info(self.url, download=False)
+                except youtube_dl.DownloadError as err:
+                    print(err)
+                    return None
+                except Exception as err:
+                    print("Something went wrong beyond the program's scope.")
+                    print(err)
             if meta:
                 return {
                     "title": meta["title"],
