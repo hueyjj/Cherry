@@ -54,8 +54,22 @@ from .cherryui import Ui_MainWindow
 from .sidebar import Sidebar
 from core.downloader import MetaInformation
 
+
 class Cherry(QMainWindow, Ui_MainWindow):
     """ Main window that holds the main layout """
+
+    # FIXME Embedding thumbnail requires ffmpeg and atomicparsely. Include as dependencies in project later?
+    defaultYoutubeOpts = {
+        "format": "m4a",
+        "ignoreerrors": True,
+        "writethumbnail": True,
+        "outtmpl": "%(title)s.%(ext)s",
+        "postprocessors": [{
+            "key": "EmbedThumbnail",
+        }],
+    }
+    userYoutubeOpts = {
+    }
 
     def __init__(self, parent=None):
         super(Cherry, self).__init__()
@@ -85,8 +99,6 @@ class Cherry(QMainWindow, Ui_MainWindow):
         sidebar.actionChanged.connect(self.changeDisplay)
     
     def startMetaDownloadThread(self):
-        print("Loading meta information...")
-
         url = self.url.text()
 
         meta = MetaInformation(url)
