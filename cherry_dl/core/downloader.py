@@ -25,10 +25,13 @@ class MetaInformation(QRunnable):
 
         self.signal = MetaInformationSignal()
 
-    def _downloadImage(self, url):
-        with request.urlopen(url) as f:
-            image = f.read()
-        return image
+    def run(self):
+        meta = self._downloadInformation()
+        if meta:
+            self.signal.metaDownloaded.emit(meta)
+        else:
+            # FIXME Tell whoever connected that there is not information some other way
+            self.signal.metaDownloaded.emit({}) 
 
     def _downloadInformation(self):
         if self.url:
@@ -38,14 +41,11 @@ class MetaInformation(QRunnable):
                 return {
                     "title": meta["title"],
                     "description": meta["description"],
-                    "thumbnail": meta["thumbnail"],
+                    "thumbnail": self._downloadImage(meta["thumbnail"]),
                 }
         return None
     
-    def run(self):
-        meta = self._downloadInformation()
-        if meta:
-            self.signal.metaDownloaded.emit(meta)
-        else:
-            # FIXME Tell whoever connected that there is not information some other way
-            self.signal.metaDownloaded.emit({}) 
+    def _downloadImage(self, url):
+        with request.urlopen(url) as f:
+            image = f.read()
+        return image
