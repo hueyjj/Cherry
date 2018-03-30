@@ -10,6 +10,7 @@ from PyQt5.QtCore import (
     Qt, 
     QCoreApplication, 
     QThread, 
+    QThreadPool,
     pyqtSignal,
     pyqtSlot,
 )
@@ -49,8 +50,9 @@ from PyQt5.QtGui import (
     QPixmap,
 )
 
-from cherryui import Ui_MainWindow
-from sidebar import Sidebar
+from .cherryui import Ui_MainWindow
+from .sidebar import Sidebar
+from core.downloader import MetaInformation
 
 #from home import Home
 #from progress import Progress
@@ -70,12 +72,35 @@ class Cherry(QMainWindow, Ui_MainWindow):
         # Change display when a sidebar action is clicked
         self.connectToSidebar(self.sidebar)
 
+        # FIXME Test code
         dirname = os.path.dirname(__file__)
-        picPath = os.path.join(dirname, "../test/images/testimage.jpg")
+        picPath = os.path.join(dirname, "../../test/images/testimage.jpg")
         pic = QPixmap(picPath)
-        print(self.home.width())
         pic = pic.scaledToWidth(self.home.width())
         self.image.setPixmap(pic)
+
+        # FIXME Test code
+        #korean = "TAEYEON 태연 'Fine' MV"
+        #self.title.setText(korean)
+
+        self.run.clicked.connect(self.startMetaDownloadThread)
+
+        self.metaThreadPool = QThreadPool()
+
+        self.description.setReadOnly(True)
+
+        _demo_text = """<h3>PyQt Demonstration Widget</h3>
+        <p>This simple example demonstrates the following features.</p>
+        <ul>
+        <li>The definition of properties that behave as C++ properties to Qt and
+            Python properties to Python.</li>
+        <li>The definition of new Qt signals that can be connected to other signals
+            and Qt slots in Designer.</li>
+        <li>The definition of new Qt slots that can be connected to signals in
+            Designer.</li>
+        </ul>
+        """
+        self.description.setText(_demo_text)
 
         # Rearrange widget order
         self.horizontalLayout.removeWidget(self.stackedWidget)
@@ -87,6 +112,24 @@ class Cherry(QMainWindow, Ui_MainWindow):
     def connectToSidebar(self, sidebar):
         sidebar.actionChanged.connect(self.changeDisplay)
     
+    def startMetaDownloadThread(self):
+        print("Loading meta information...")
+
+        # FIXME Text code
+        url = r"https://www.youtube.com/watch?v=eHir_vB1RUI"
+        meta = MetaInformation(url)
+        meta.signal.metaDownloaded.connect(self.loadMetaInfo)
+
+        self.metaThreadPool.start(meta)
+
+    @pyqtSlot(dict)
+    def loadMetaInfo(self, meta):
+        print("Loaded meta information")
+        self.title.setText(meta["title"])
+
+        #url = self.url.text()
+        #self.meta.load(url)
+
     @pyqtSlot(int)
     def changeDisplay(self, index):
         self.stackedWidget.setCurrentIndex(index)
