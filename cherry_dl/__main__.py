@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from PyQt5.QtWidgets import QApplication
-from cherry import Cherry
-from cherryui import Ui_MainWindow
+from gui.cherry import Cherry
+from gui.cherryui import Ui_MainWindow
 
 def main():
     import sys
