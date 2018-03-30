@@ -73,11 +73,11 @@ class Cherry(QMainWindow, Ui_MainWindow):
         self.connectToSidebar(self.sidebar)
 
         # FIXME Test code
-        dirname = os.path.dirname(__file__)
-        picPath = os.path.join(dirname, "../../test/images/testimage.jpg")
-        pic = QPixmap(picPath)
-        pic = pic.scaledToWidth(self.home.width())
-        self.image.setPixmap(pic)
+        #dirname = os.path.dirname(__file__)
+        #picPath = os.path.join(dirname, "../../test/images/testimage.jpg")
+        #pic = QPixmap(picPath)
+        #pic = pic.scaledToWidth(self.home.width())
+        #self.image.setPixmap(pic)
 
         # FIXME Test code
         #korean = "TAEYEON 태연 'Fine' MV"
@@ -89,18 +89,18 @@ class Cherry(QMainWindow, Ui_MainWindow):
 
         self.description.setReadOnly(True)
 
-        _demo_text = """<h3>PyQt Demonstration Widget</h3>
-        <p>This simple example demonstrates the following features.</p>
-        <ul>
-        <li>The definition of properties that behave as C++ properties to Qt and
-            Python properties to Python.</li>
-        <li>The definition of new Qt signals that can be connected to other signals
-            and Qt slots in Designer.</li>
-        <li>The definition of new Qt slots that can be connected to signals in
-            Designer.</li>
-        </ul>
-        """
-        self.description.setText(_demo_text)
+        #_demo_text = """<h3>PyQt Demonstration Widget</h3>
+        #<p>This simple example demonstrates the following features.</p>
+        #<ul>
+        #<li>The definition of properties that behave as C++ properties to Qt and
+        #    Python properties to Python.</li>
+        #<li>The definition of new Qt signals that can be connected to other signals
+        #    and Qt slots in Designer.</li>
+        #<li>The definition of new Qt slots that can be connected to signals in
+        #    Designer.</li>
+        #</ul>
+        #"""
+        #self.description.setText(_demo_text)
 
         # Rearrange widget order
         self.horizontalLayout.removeWidget(self.stackedWidget)
@@ -127,8 +127,16 @@ class Cherry(QMainWindow, Ui_MainWindow):
         print("Loaded meta information")
         self.title.setText(meta["title"])
 
-        #url = self.url.text()
-        #self.meta.load(url)
+        self.description.setText("""
+        <p>
+        %s
+        </p>
+        """ % meta["description"])
+
+        pic = QPixmap()
+        pic.loadFromData(meta["thumbnail"])
+        pic = pic.scaledToWidth(self.home.width())
+        self.image.setPixmap(pic)
 
     @pyqtSlot(int)
     def changeDisplay(self, index):
