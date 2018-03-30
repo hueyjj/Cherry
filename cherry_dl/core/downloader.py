@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import urllib.request as request
+import os
 
 from PyQt5 import (
     QtCore, 
@@ -57,3 +58,30 @@ class MetaInformation(QRunnable):
         with request.urlopen(url) as f:
             image = f.read()
         return image
+
+class DownloaderSignal(QObject):
+    downloadComplete = pyqtSignal()
+    unableToRetrieveMeta = pyqtSignal()
+
+class Downloader(QRunnable):
+    ''' Downloads videos with respect to user options '''
+
+    def __init__(self, url, saveDir, opts=None):
+        super().__init__()
+        self.url = url
+        self.saveDir = saveDir
+        self.opts = opts
+
+    def run(self):
+        self._download()
+    
+    def _download(self):
+        # Save last location before changing into save directory
+        last = os.getcwd()
+        os.chdir(self.saveDir)
+
+        with youtube_dl.YoutubeDL(self.opts) as ytdl:
+            ytdl.download([self.url])
+
+        # Return to last location
+        os.chdir(last)
