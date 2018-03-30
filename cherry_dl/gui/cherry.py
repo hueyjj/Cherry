@@ -116,15 +116,18 @@ class Cherry(QMainWindow, Ui_MainWindow):
         print("Loading meta information...")
 
         # FIXME Text code
-        url = r"https://www.youtube.com/watch?v=eHir_vB1RUI"
+        #url = r"https://www.youtube.com/watch?v=eHir_vB1RUI"
+        url = self.url.text()
         meta = MetaInformation(url)
         meta.signal.metaDownloaded.connect(self.loadMetaInfo)
+        meta.signal.unableToRetrieveMeta.connect(self.noMetaInformationFound)
 
         self.metaThreadPool.start(meta)
 
     @pyqtSlot(dict)
     def loadMetaInfo(self, meta):
         print("Loaded meta information")
+
         self.title.setText(meta["title"])
 
         self.description.setText("""
@@ -137,6 +140,13 @@ class Cherry(QMainWindow, Ui_MainWindow):
         pic.loadFromData(meta["thumbnail"])
         pic = pic.scaledToWidth(self.home.width())
         self.image.setPixmap(pic)
+
+    @pyqtSlot(str)
+    def noMetaInformationFound(self, url):
+        if url:
+            print("No meta information found for " + url)
+        else:
+            print("No meta information found and no url provided.")
 
     @pyqtSlot(int)
     def changeDisplay(self, index):
