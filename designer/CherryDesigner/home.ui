@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>home</class>
- <widget class="QWidget" name="home">
+ <class>Home</class>
+ <widget class="QWidget" name="Home">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -59,6 +59,12 @@
        </item>
        <item>
         <widget class="QTextEdit" name="description">
+         <property name="minimumSize">
+          <size>
+           <width>662</width>
+           <height>194</height>
+          </size>
+         </property>
          <property name="html">
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
