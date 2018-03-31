@@ -70,14 +70,17 @@ class Sidebar(QWidget):
         homeIconPath = os.path.join(dirname, "../../icons/cherry.png")
         progressIconPath = os.path.join(dirname, "../../icons/tree.png")
         historyIconPath = os.path.join(dirname, "../../icons/roots.png")
+        configIconPath = os.path.join(dirname, "../../icons/gear-white.png")
         self.homeAction = QAction(QIcon(homeIconPath), "Home", self)
         self.progressAction = QAction(QIcon(progressIconPath), "Progress", self)
         self.historyAction = QAction(QIcon(historyIconPath), "History", self)
+        self.configAction = QAction(QIcon(configIconPath), "Config", self)
 
         self.actionList = [
             self.homeAction,
             self.progressAction,
             self.historyAction,
+            self.configAction,
         ]
 
         for action in self.actionList:
@@ -118,6 +121,8 @@ class Sidebar(QWidget):
             self.setSelectedAction(1)
         elif action == self.historyAction:
             self.setSelectedAction(2)
+        elif action == self.configAction:
+            self.setSelectedAction(3)
 
     def paintEvent(self, event):
         p = QPainter(self)
@@ -150,7 +155,7 @@ class Sidebar(QWidget):
             p.drawText(actionTextRect, Qt.AlignCenter, action.text())
 
             # Draw button
-            actionIconRect = QRect(0, actionY + 10, actionRect.width(), actionRect.height() - 2 * actionTextRect.height() - 10)
+            actionIconRect = QRect(0, actionY, actionRect.width(), actionRect.height() - 2 * actionTextRect.height() - 10)
             actionIcon = QIcon(action.icon())
             actionIcon.paint(p, actionIconRect)
 
