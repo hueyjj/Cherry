@@ -32,26 +32,24 @@ class MetaInformation(QRunnable):
         if meta:
             self.signal.metaDownloaded.emit(meta)
         else:
-            # FIXME Tell whoever connected that there is not information some other way
             self.signal.unableToRetrieveMeta.emit(self.url) 
 
     def _downloadInformation(self):
-        if self.url:
-            with youtube_dl.YoutubeDL() as ytdl:
-                try:
-                    meta = ytdl.extract_info(self.url, download=False)
-                except youtube_dl.DownloadError as err:
-                    print(err)
-                    return None
-                except Exception as err:
-                    print("Something went wrong beyond the program's scope.")
-                    print(err)
-            if meta:
-                return {
-                    "title": meta["title"],
-                    "description": meta["description"],
-                    "thumbnail": self._downloadImage(meta["thumbnail"]),
-                }
+        with youtube_dl.YoutubeDL() as ytdl:
+            try:
+                meta = ytdl.extract_info(self.url, download=False)
+            except youtube_dl.DownloadError as err:
+                print(err)
+                return None
+            except Exception as err:
+                print("Something went wrong beyond the program's scope.")
+                print(err)
+        if meta:
+            return {
+                "title": meta["title"],
+                "description": meta["description"],
+                "thumbnail": self._downloadImage(meta["thumbnail"]),
+            }
         return None
     
     def _downloadImage(self, url):
