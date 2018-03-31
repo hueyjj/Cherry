@@ -11,8 +11,8 @@ from ..ui.config_ui import Ui_Configuration
 
 class Config(QWidget, Ui_Configuration):
 
-    def __init__(self, parent=None):
-        super().__init__()
+    def __init__(self, parent):
+        super().__init__(parent)
 
         self.setupUi(self)
 

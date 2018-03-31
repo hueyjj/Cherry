@@ -60,7 +60,7 @@ class Sidebar(QWidget):
 
     # Widget parameter for extracting information from UI widget if necessary
     def __init__(self, parent):
-        super(Sidebar, self).__init__(parent)
+        super().__init__(parent)
 
         # Home, progress, history, etc. width and height
         self.actionWidth = 90
