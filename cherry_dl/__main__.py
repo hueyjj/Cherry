@@ -1,20 +1,11 @@
 #!/usr/bin/env python
+import sys
 
-from PyQt5.QtWidgets import QApplication
-from gui.cherry import Cherry
-from gui.cherryui import Ui_MainWindow
+import os.path
+path = os.path.realpath(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(os.path.dirname(path)))
 
-def main():
-    import sys
-
-    app = QApplication(sys.argv)
-    app.setQuitOnLastWindowClosed(False)
-
-    cherry = Cherry()
-    cherry.show()
-
-    sys.exit(app.exec_())
-
+import cherry_dl
 
 if __name__ == '__main__':
-    main()
+    cherry_dl.main()
