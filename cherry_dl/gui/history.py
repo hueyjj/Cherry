@@ -1,52 +1,29 @@
 from PyQt5 import (
-    QtCore, 
-    QtWidgets, 
-    QtGui
+    QtWidgets,
 )
-from PyQt5.QtCore import (
-    Qt, 
-    QCoreApplication, 
-    QThread, 
-    pyqtSignal
-)
+
 from PyQt5.QtWidgets import (
-    QApplication, 
-    QComboBox, 
-    QDialog,
-    QDialogButtonBox, 
-    QFormLayout, 
-    QGridLayout, 
-    QGroupBox, 
-    QHBoxLayout,
-    QLabel, 
-    QLineEdit, 
-    QMenu, 
-    QMenuBar, 
-    QPushButton, 
-    QSpinBox, 
-    QTextEdit,
-    QVBoxLayout,
+    QApplication,
     QWidget,
-    QStackedWidget,
-    QListWidget,
-    QRadioButton,
-    QCheckBox,
 )
 
-from PyQt5.QtGui import (
-    QIcon, 
-    QCursor, 
-    QWindow, 
-    QGuiApplication
-)
+from ..ui.history_ui import Ui_History
 
-class History(QWidget):
+class History(QWidget, Ui_History):
 
-    def __init__(self, parent=None):
-        super().__init__()
+    def __init__(self, parent):
+        super().__init__(parent)
 
-        layout = QHBoxLayout()
-        layout.addWidget(QLabel("subjects"))
-        layout.addWidget(QCheckBox("Physics"))
-        layout.addWidget(QCheckBox("Maths"))
-        self.setLayout(layout)
+        self.setupUi(self)
+
+    def setupConfig(self):
+        for child in self.widget.children():
+            if child.objectName() == "pushButton_3":
+                print("foo")
+                print(type(child))
+                child.clicked.connect(self.foo)
+    
+    def foo(self):
+        print("Button 3 clicked")
+
+

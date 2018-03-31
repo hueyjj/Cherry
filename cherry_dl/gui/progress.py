@@ -1,55 +1,31 @@
+
 from PyQt5 import (
-    QtCore, 
-    QtWidgets, 
-    QtGui
+    QtWidgets,
 )
-from PyQt5.QtCore import (
-    Qt, 
-    QCoreApplication, 
-    QThread, 
-    pyqtSignal
-)
+
 from PyQt5.QtWidgets import (
-    QApplication, 
-    QComboBox, 
-    QDialog,
-    QDialogButtonBox, 
-    QFormLayout, 
-    QGridLayout, 
-    QGroupBox, 
-    QHBoxLayout,
-    QLabel, 
-    QLineEdit, 
-    QMenu, 
-    QMenuBar, 
-    QPushButton, 
-    QSpinBox, 
-    QTextEdit,
-    QVBoxLayout,
+    QApplication,
     QWidget,
-    QStackedWidget,
-    QListWidget,
-    QRadioButton,
-    QCheckBox,
 )
 
-from PyQt5.QtGui import (
-    QIcon, 
-    QCursor, 
-    QWindow, 
-    QGuiApplication
-)
+from ..ui.progress_ui import Ui_Progress
 
-class Progress(QWidget):
+class Progress(QWidget, Ui_Progress):
 
-    def __init__(self, parent=None):
-        super().__init__()
+    def __init__(self, parent):
+        super().__init__(parent)
 
-        layout = QFormLayout()
-        sex = QHBoxLayout()
-        sex.addWidget(QRadioButton("Male"))
-        sex.addWidget(QRadioButton("Female"))
-        layout.addRow(QLabel("Sex"), sex)
-        layout.addRow("Date of Birth", QLineEdit())
+        self.setupUi(self)
 
-        self.setLayout(layout)
+    def setupConfig(self):
+        for child in self.widget.children():
+            if child.objectName() == "pushButton_3":
+                print("foo")
+                print(type(child))
+                child.clicked.connect(self.foo)
+    
+    def foo(self):
+        print("Button 3 clicked")
+
+
+
