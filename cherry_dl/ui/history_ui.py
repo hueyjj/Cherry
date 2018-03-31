@@ -8,15 +8,15 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(700, 500)
+class Ui_History(object):
+    def setupUi(self, History):
+        History.setObjectName("History")
+        History.resize(700, 500)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(History)
+        QtCore.QMetaObject.connectSlotsByName(History)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, History):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        History.setWindowTitle(_translate("History", "Form"))
 

@@ -8,13 +8,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_home(object):
-    def setupUi(self, home):
-        home.setObjectName("home")
-        home.resize(700, 500)
-        self.verticalLayout = QtWidgets.QVBoxLayout(home)
+class Ui_Home(object):
+    def setupUi(self, Home):
+        Home.setObjectName("Home")
+        Home.resize(700, 500)
+        self.verticalLayout = QtWidgets.QVBoxLayout(Home)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.scrollArea = QtWidgets.QScrollArea(home)
+        self.scrollArea = QtWidgets.QScrollArea(Home)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
@@ -38,6 +38,7 @@ class Ui_home(object):
         self.image.setObjectName("image")
         self.verticalLayout_2.addWidget(self.image)
         self.description = QtWidgets.QTextEdit(self.scrollAreaWidgetContents)
+        self.description.setMinimumSize(QtCore.QSize(662, 194))
         self.description.setObjectName("description")
         self.verticalLayout_2.addWidget(self.description)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -45,16 +46,16 @@ class Ui_home(object):
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
 
-        self.retranslateUi(home)
-        QtCore.QMetaObject.connectSlotsByName(home)
+        self.retranslateUi(Home)
+        QtCore.QMetaObject.connectSlotsByName(Home)
 
-    def retranslateUi(self, home):
+    def retranslateUi(self, Home):
         _translate = QtCore.QCoreApplication.translate
-        home.setWindowTitle(_translate("home", "Form"))
-        self.download.setText(_translate("home", "Download"))
-        self.title.setText(_translate("home", "Title here"))
-        self.image.setText(_translate("home", "Image here"))
-        self.description.setHtml(_translate("home", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        Home.setWindowTitle(_translate("Home", "Form"))
+        self.download.setText(_translate("Home", "Download"))
+        self.title.setText(_translate("Home", "Title here"))
+        self.image.setText(_translate("Home", "Image here"))
+        self.description.setHtml(_translate("Home", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
