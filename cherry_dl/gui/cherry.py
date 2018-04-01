@@ -66,7 +66,7 @@ class Cherry(QMainWindow, Ui_MainWindow):
     """ Main window that holds the main layout """
 
     def __init__(self, parent=None):
-        super(Cherry, self).__init__()
+        super().__init__()
 
         self.setupUi(self)
 
@@ -90,10 +90,10 @@ class Cherry(QMainWindow, Ui_MainWindow):
         self.horizontalLayout.addWidget(self.sidebar)
         self.horizontalLayout.addWidget(self.stackedWidget)
 
-        ## TODO Find a different way to give a better padding to the right of the window without 10
+        # Apparently not needed anymore
         #self.setMinimumWidth(self.stackedWidget.width() + self.sidebar.width() + 10)
 
-        self.setWindowTitle("Cherry")
+        self.setWindowTitle("cherry-dl")
 
     @pyqtSlot(int)
     def changeDisplay(self, index):
