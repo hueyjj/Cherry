@@ -1,3 +1,12 @@
 Memory usage
     PyQt5 application itself takes around 10-20 MB depending on how many componenets there are.
     youtube_dl takes at least 20+ MB, even when just imported.
+
+Linux
+    We need to convert all files from dos to unix format.
+    pyuic5.exe is needed to covnert .ui files to .py files.
+        https://askubuntu.com/questions/612314/how-to-install-pyqt-for-python-3-in-ubuntu-14-10
+    We need to add instructions on how to build on linux
+
+Windows
+    We need to add information on how to get all the dependencies such as pyui5.exe.
