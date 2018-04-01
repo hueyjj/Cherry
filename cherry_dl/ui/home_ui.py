@@ -24,6 +24,9 @@ class Ui_Home(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.urlLabel = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.urlLabel.setObjectName("urlLabel")
+        self.horizontalLayout.addWidget(self.urlLabel)
         self.userInput = QtWidgets.QLineEdit(self.scrollAreaWidgetContents)
         self.userInput.setObjectName("userInput")
         self.horizontalLayout.addWidget(self.userInput)
@@ -52,6 +55,7 @@ class Ui_Home(object):
     def retranslateUi(self, Home):
         _translate = QtCore.QCoreApplication.translate
         Home.setWindowTitle(_translate("Home", "Form"))
+        self.urlLabel.setText(_translate("Home", "Input url:"))
         self.download.setText(_translate("Home", "Download"))
         self.title.setText(_translate("Home", "Title here"))
         self.image.setText(_translate("Home", "Image here"))
