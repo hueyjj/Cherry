@@ -27,12 +27,21 @@ Deactivate virtualenv (when in virtualenv)
 deactivate
 ```
 
-# Workflow
+# Building (workflow)
 1. Make UI with QT Creator
 
     a. Generate python code of UI
     ```
-    ./buildui.sh
+    ./build_ui.sh
     ```
 2. Use Pyinstaller to convert python to windows executable
+    ```
+    ./build_cherry-dl.sh
+    ```
 3. Use Inno setup to create installer for executable
+
+# Running
+```
+cd cherry-dl
+python cherry_dl
+```
