@@ -1,0 +1,3 @@
+Memory usage
+    PyQt5 application itself takes around 10-20 MB depending on how many componenets there are.
+    youtube_dl takes at least 20+ MB, even when just imported.
