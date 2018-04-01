@@ -32,6 +32,13 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
+          <widget class="QLabel" name="urlLabel">
+           <property name="text">
+            <string>Input url:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLineEdit" name="userInput"/>
          </item>
          <item>
