@@ -1,0 +1,12 @@
+{
+    "saveDirectory": "C:\\users\\jj\\downloads",
+    "youtubedlConfigs": {
+        "format": "m4a",
+        "ignoreerrors": "True",
+        "writethumbnail": "True",
+        "outtmpl": "%(title)s.%(ext)s",
+        "postprocessors": [{
+            "key": "EmbedThumbnail"
+        }]
+    }
+}
