@@ -1,3 +1,5 @@
+import os
+
 from PyQt5 import (
     QtCore, 
     QtWidgets, 
@@ -45,6 +47,7 @@ from PyQt5.QtGui import (
     QWindow, 
     QGuiApplication,
     QPixmap,
+    QMovie,
 )
 
 from ..ui.home_ui import Ui_Home
@@ -78,11 +81,19 @@ class Home(QWidget, Ui_Home):
 
         self.userInput.textChanged.connect(self.urlChanged)
         self.download.clicked.connect(self.startDownload)
+        
+        dirname = os.path.dirname(__file__)
+        loadingGifPath = os.path.join(dirname, "../../icons/loading.gif")
+        self.loadingGif = QMovie(loadingGifPath)
 
         self.description.setReadOnly(True)
 
     def startMetaDownloadThread(self):
         url = self.userInput.text()
+
+        # Start loading gif
+        self.clearMetaInfo()
+        self.startLoadingAnimation()
 
         meta = MetaInformation(url)
         meta.signal.metaDownloaded.connect(self.loadMetaInfo)
@@ -97,6 +108,26 @@ class Home(QWidget, Ui_Home):
         dl = Downloader(url, r"C:/users/jj/downloads", self.defaultYoutubeOpts)
 
         self.metaThreadPool.start(dl)
+        self.userInput.clear()
+        self.clearMetaInfo()
+
+    def startLoadingAnimation(self):
+        self.image.setMovie(self.loadingGif)
+        self.loadingGif.start()
+    
+    def stopLoadingAnimation(self):
+        self.image.setMovie(None)
+        self.loadingGif.stop()
+
+    def clearMetaInfo(self):
+        self.title.setText("...")
+        # Description
+        self.description.setText("""
+        <p>
+        ...
+        </p>
+        """)
+        self.image.clear()
 
     @pyqtSlot(str)
     def urlChanged(self, text):
@@ -105,6 +136,8 @@ class Home(QWidget, Ui_Home):
 
     @pyqtSlot(dict)
     def loadMetaInfo(self, meta):
+        self.stopLoadingAnimation()
+
         print("Loaded meta information")
 
         # Title
@@ -120,7 +153,7 @@ class Home(QWidget, Ui_Home):
         # Image (load from a byte array)
         pic = QPixmap()
         pic.loadFromData(meta["thumbnail"])
-        pic = pic.scaledToWidth(self.width())
+        pic = pic.scaledToWidth(self.width() * 0.75)
         self.image.setPixmap(pic)
 
     @pyqtSlot(str)
