@@ -7,14 +7,14 @@ Create virtualenv
 virtualenv ~/.virtualenvs/cherry-dl
 ```
 
-Install requirements
-```
-pip install -r requirements.txt
-```
-
 Activate virtualenv (in a shell, then cd to project directory)
 ```
 source ~/.virtualenvs/cherry-dl/Scripts/activate
+```
+
+Install requirements
+```
+pip install -r requirements.txt
 ```
 
 Check virtualenv (path to virtualenv location)
