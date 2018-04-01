@@ -51,11 +51,11 @@ from PyQt5.QtGui import (
 )
 
 from ..ui.main_ui import Ui_MainWindow
-from .sidebar import Sidebar
-from .home import Home
-from .progress import Progress
-from .history import History
-from .config import Config
+from .sidebarwidget import SidebarWidget
+from .homewidget import HomeWidget
+from .progresswidget import ProgressWidget
+from .historywidget import HistoryWidget
+from .configwidget import ConfigWidget
 from ..core.downloader import (
     MetaInformation,
     Downloader,
@@ -71,21 +71,21 @@ class Cherry(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         # Create sidebar
-        self.sidebar = Sidebar(self.centralwidget)
+        self.sidebar = SidebarWidget(self.centralwidget)
         self.sidebar.actionChanged.connect(self.changeDisplay)
 
         self.stackedWidget = QStackedWidget()
 
         # Create separate widgets (views) for stacked widget
-        self.home = Home(self.stackedWidget)
-        self.progress = Progress(self.stackedWidget)
-        self.history = History(self.stackedWidget)
-        self.config = Config(self.stackedWidget)
+        self.homeWidget = HomeWidget(self.stackedWidget)
+        self.progressWidget = ProgressWidget(self.stackedWidget)
+        self.historyWidget = HistoryWidget(self.stackedWidget)
+        self.configWidget = ConfigWidget(self.stackedWidget)
 
-        self.stackedWidget.addWidget(self.home)
-        self.stackedWidget.addWidget(self.progress)
-        self.stackedWidget.addWidget(self.history)
-        self.stackedWidget.addWidget(self.config)
+        self.stackedWidget.addWidget(self.homeWidget)
+        self.stackedWidget.addWidget(self.progressWidget)
+        self.stackedWidget.addWidget(self.historyWidget)
+        self.stackedWidget.addWidget(self.configWidget)
 
         self.horizontalLayout.addWidget(self.sidebar)
         self.horizontalLayout.addWidget(self.stackedWidget)
