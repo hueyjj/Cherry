@@ -22,7 +22,7 @@ class MetaInformation(QRunnable):
     ''' Stores meta information of the current youtube link '''
 
     def __init__(self, url):
-        super(MetaInformation, self).__init__()
+        super().__init__()
         self.url = url
 
         self.signal = MetaInformationSignal()
