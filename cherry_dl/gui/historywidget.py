@@ -1,4 +1,3 @@
-
 from PyQt5 import (
     QtWidgets,
 )
@@ -8,9 +7,9 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-from ..ui.progress_ui import Ui_Progress
+from ..ui.history_ui import Ui_History
 
-class Progress(QWidget, Ui_Progress):
+class HistoryWidget(QWidget, Ui_History):
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -26,6 +25,5 @@ class Progress(QWidget, Ui_Progress):
     
     def foo(self):
         print("Button 3 clicked")
-
 
 

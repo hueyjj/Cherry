@@ -57,7 +57,7 @@ from ..core.downloader import (
 )
 
 
-class Home(QWidget, Ui_Home):
+class HomeWidget(QWidget, Ui_Home):
 
     metaThreadPool = QThreadPool()
 

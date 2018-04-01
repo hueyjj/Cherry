@@ -54,7 +54,7 @@ from PyQt5.QtGui import (
 )
 
 
-class Sidebar(QWidget):
+class SidebarWidget(QWidget):
     
     actionChanged = pyqtSignal(int)
 
