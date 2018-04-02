@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>705</width>
-    <height>539</height>
+    <width>700</width>
+    <height>500</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>705</width>
-    <height>0</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -30,27 +24,34 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>671</width>
-        <height>504</height>
+        <width>666</width>
+        <height>498</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QFormLayout" name="formLayout_2">
-         <item row="1" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
           <widget class="QLabel" name="label">
            <property name="text">
             <string>Save directory</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
+         <item>
+          <widget class="QLineEdit" name="dirInput"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="browse">
+           <property name="text">
+            <string>Browse</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="formatGroup">
          <property name="title">
           <string>Format:</string>
          </property>
@@ -58,21 +59,21 @@
           <item row="0" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QRadioButton" name="radioButton">
+             <widget class="QRadioButton" name="mp3">
               <property name="text">
                <string>.mp3</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_2">
+             <widget class="QRadioButton" name="m4a">
               <property name="text">
                <string>.m4a</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_3">
+             <widget class="QRadioButton" name="mp4">
               <property name="text">
                <string>.mp4</string>
               </property>
@@ -84,7 +85,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2">
+        <widget class="QGroupBox" name="videoGroup">
          <property name="title">
           <string>Video:</string>
          </property>

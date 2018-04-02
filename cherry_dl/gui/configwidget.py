@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import (
 )
 
 from ..ui.config_ui import Ui_Configuration
+from ..core.utils import Config
 
 class ConfigWidget(QWidget, Ui_Configuration):
 
@@ -15,3 +16,11 @@ class ConfigWidget(QWidget, Ui_Configuration):
         super().__init__(parent)
 
         self.setupUi(self)
+
+        self.config = Config()
+        self.initGuiOptions()
+    
+    def initGuiOptions(self):
+        c = self.config.getConfig()
+        self.dirInput.setText(c["saveDirectory"])
+
