@@ -19,6 +19,7 @@ from ..core.utils import Config
 
 class ConfigWidget(QWidget, Ui_Configuration):
     formatChanged = pyqtSignal()
+    configCancelled = pyqtSignal()
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -49,6 +50,7 @@ class ConfigWidget(QWidget, Ui_Configuration):
                 formatOption.clicked.connect(self.setFormat)
         
         self.apply.clicked.connect(self.saveConfig)
+        self.cancel.clicked.connect(self.cancelConfig)
     
     def setFormat(self):
         sender = self.sender()
@@ -61,3 +63,8 @@ class ConfigWidget(QWidget, Ui_Configuration):
 
     def saveConfig(self):
         self.config.saveConfig()
+    
+    def cancelConfig(self):
+        # FIXME Unset configs back to original
+
+        self.configCancelled.emit()

@@ -81,6 +81,7 @@ class Cherry(QMainWindow, Ui_MainWindow):
         self.progressWidget = ProgressWidget(self.stackedWidget)
         self.historyWidget = HistoryWidget(self.stackedWidget)
         self.configWidget = ConfigWidget(self.stackedWidget)
+        self.configWidget.configCancelled.connect(self.changeDisplayToHome)
 
         self.stackedWidget.addWidget(self.homeWidget)
         self.stackedWidget.addWidget(self.progressWidget)
@@ -98,6 +99,10 @@ class Cherry(QMainWindow, Ui_MainWindow):
     @pyqtSlot(int)
     def changeDisplay(self, index):
         self.stackedWidget.setCurrentIndex(index)
+    
+    @pyqtSlot()
+    def changeDisplayToHome(self):
+        self.stackedWidget.setCurrentIndex(0)
 
     def closeEvent(self, closeEvent):
         QCoreApplication.exit()
