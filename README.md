@@ -5,6 +5,10 @@ A youtube-dl gui application.
 
 ![0.1.0 config](https://raw.githubusercontent.com/hueyjj/cherry-dl/master/screenshots/config.PNG)
 
+# Release
+A portable and installer version are available.
+[The current release can be downloaded here](https://github.com/hueyjj/cherry-dl/releases/tag/0.1)
+
 # Virtualenv (developing)
 Create virtualenv
 ```
