@@ -10,3 +10,7 @@ Linux
 
 Windows
     We need to add information on how to get all the dependencies such as pyui5.exe.
+
+Atomic parsely and ffmpeg (important)
+    These two need to be bundled with our program, other wise youtube-dl will throw errors when itself
+    cannot embed thumanails (and possibly more).
