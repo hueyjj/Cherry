@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import (
     QApplication,
     QWidget,
     QRadioButton,
+    QFileDialog,
 )
 
 from ..ui.config_ui import Ui_Configuration
@@ -27,7 +28,11 @@ class ConfigWidget(QWidget, Ui_Configuration):
         self.setupUi(self)
 
         self.config = Config()
+
         self.initGuiOptions()
+
+        # File dialog for path to save directory
+        self.browse.clicked.connect(self.openFileDialog)
     
     def initGuiOptions(self):
         c = self.config.getConfig()
@@ -64,6 +69,23 @@ class ConfigWidget(QWidget, Ui_Configuration):
         self.cancel.clicked.connect(self.cancelConfig)
         self.ok.clicked.connect(self.okConfig)
     
+    def openFileDialog(self):
+        dialog = QFileDialog(caption="Save folder", directory=self.config.homeDir, filter='')
+        dialog.setFileMode(QFileDialog.Directory)
+        dialog.directoryEntered.connect(self.setFileDialogSaveURL)
+        dialog.finished.connect(self.setSaveDir)
+        dialog.exec()
+
+    @pyqtSlot(str)
+    def setFileDialogSaveURL(self, path):
+        self.fileDialogSaveURL = path
+
+    @pyqtSlot() 
+    def setSaveDir(self):
+        print(self.fileDialogSaveURL)
+        self.dirInput.setText(self.fileDialogSaveURL)
+        self.config.setSaveDir(self.fileDialogSaveURL)
+
     def getConfig(self):
         return self.config.getConfig()
     
