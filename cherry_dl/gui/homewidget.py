@@ -129,7 +129,6 @@ class HomeWidget(QWidget, Ui_Home):
         html = "<p>"
         for char in desc:
             if char == '\n':
-                print('new line found')
                 html += "</p><p>"
             html += char
         html += "</p>"
