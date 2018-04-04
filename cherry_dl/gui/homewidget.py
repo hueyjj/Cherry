@@ -61,19 +61,6 @@ class HomeWidget(QWidget, Ui_Home):
 
     metaThreadPool = QThreadPool()
 
-    # FIXME Embedding thumbnail requires ffmpeg and atomicparsely. Include as dependencies in project later?
-    defaultYoutubeOpts = {
-        "format": "m4a",
-        "ignoreerrors": True,
-        "writethumbnail": True,
-        "outtmpl": "%(title)s.%(ext)s",
-        "postprocessors": [{
-            "key": "EmbedThumbnail",
-        }],
-    }
-    userYoutubeOpts = {
-    }
-
     def __init__(self, parent):
         super().__init__(parent)
 
@@ -87,6 +74,9 @@ class HomeWidget(QWidget, Ui_Home):
         self.loadingGif = QMovie(loadingGifPath)
 
         self.description.setReadOnly(True)
+    
+    def setConfig(self, config):
+        self.config = config
 
     def startMetaDownloadThread(self):
         url = self.userInput.text()
@@ -105,7 +95,7 @@ class HomeWidget(QWidget, Ui_Home):
         # validate(self.userInput.text())
         url = self.userInput.text()
 
-        dl = Downloader(url, r"C:/users/jj/downloads", self.defaultYoutubeOpts)
+        dl = Downloader(url, self.config["saveDirectory"], self.config["youtubedl"])
 
         self.metaThreadPool.start(dl)
         self.userInput.clear()

@@ -18,7 +18,7 @@ from ..ui.config_ui import Ui_Configuration
 from ..core.utils import Config
 
 class ConfigWidget(QWidget, Ui_Configuration):
-    formatChanged = pyqtSignal()
+    configChanged = pyqtSignal()
     configCancelled = pyqtSignal()
 
     def __init__(self, parent):
@@ -34,7 +34,7 @@ class ConfigWidget(QWidget, Ui_Configuration):
         self.dirInput.setText(c["saveDirectory"])
 
         # Enable format radio button
-        f = c["youtubedl"]["format"]
+        f = c["format"]
         if f == "mp3":
             self.mp3.setChecked(True)
         elif f == "m4a":
@@ -43,14 +43,29 @@ class ConfigWidget(QWidget, Ui_Configuration):
             self.mp4.setChecked(True)
 
         # Enable video radio button
+        v = c["video"]
+        if v == "best":
+            self.videoAndAudio.setChecked(True)
+        elif v == "bestvideo":
+            self.videoOnly.setChecked(True)
+        elif v == "bestaudio":
+            self.audioOnly.setChecked(True)
 
-        # Connect signals to options
+        # Connect format signals to options
         for formatOption in self.formatGroup.children():
             if isinstance(formatOption, QRadioButton):
                 formatOption.clicked.connect(self.setFormat)
+            
+        for videoOption in self.videoGroup.children():
+            if isinstance(videoOption, QRadioButton):
+                videoOption.clicked.connect(self.setVideo)
         
         self.apply.clicked.connect(self.saveConfig)
         self.cancel.clicked.connect(self.cancelConfig)
+        self.ok.clicked.connect(self.okConfig)
+    
+    def getConfig(self):
+        return self.config.getConfig()
     
     def setFormat(self):
         sender = self.sender()
@@ -60,11 +75,25 @@ class ConfigWidget(QWidget, Ui_Configuration):
             self.config.setFormat("m4a")
         elif sender is self.mp4:
             self.config.setFormat("mp4")
+        
+    def setVideo(self):
+        sender = self.sender()
+        if sender is self.videoAndAudio:
+            self.config.setVideo("best")
+        elif sender is self.videoOnly:
+            self.config.setVideo("bestvideo")
+        elif sender is self.audioOnly:
+            self.config.setVideo("bestaudio")
 
     def saveConfig(self):
         self.config.saveConfig()
+        self.configChanged.emit()
     
     def cancelConfig(self):
-        # FIXME Unset configs back to original
+        # FIXME Reset configs back to original
 
         self.configCancelled.emit()
+    
+    def okConfig(self):
+        self.saveConfig()
+        self.cancelConfig()

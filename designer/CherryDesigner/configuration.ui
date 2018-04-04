@@ -93,21 +93,21 @@
           <item row="0" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QRadioButton" name="radioButton_4">
+             <widget class="QRadioButton" name="videoAndAudio">
               <property name="text">
                <string>Video and audio</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_5">
+             <widget class="QRadioButton" name="videoOnly">
               <property name="text">
                <string>Video (only)</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_6">
+             <widget class="QRadioButton" name="audioOnly">
               <property name="text">
                <string>Audio (only)</string>
               </property>

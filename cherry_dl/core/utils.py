@@ -10,10 +10,13 @@ class Config(object):
     userConfigPath = os.path.join(userSaveDir, "config.json")
     defaultSavePath = os.path.join(homeDir, "Downloads")
 
+    # FIXME Embedding thumbnail requires ffmpeg and atomicparsely. Include as dependencies in project later?
     defaultConfig = {
         "saveDirectory": defaultSavePath,
+        "format": "m4a",
+        "video": 'best',
         "youtubedl": {
-            "format": "m4a",
+            "format": "best[ext=m4a]",
             "ignoreerrors": "True",
             "writethumbnail": "True",
             "outtmpl": "%(title)s.%(ext)s",
@@ -21,6 +24,8 @@ class Config(object):
                 "key": "EmbedThumbnail"
             }]
         }
+    }
+    userYoutubeOpts = {
     }
 
     def __init__(self):
@@ -56,8 +61,23 @@ class Config(object):
 
     def setSaveDir(self, newDir):
         self.config["saveDirectory"] = newDir
+    
+    def getFormat(self):
+        return self.getYoutubedlConfig()["format"]
 
     def setFormat(self, newFormat):
-        self.getYoutubedlConfig()["format"] = newFormat
+        c = self.getConfig()
+        c["format"] = newFormat
 
-    # TODO Set video, audio, or both
+        yt = self.getYoutubedlConfig()
+        yt["format"] = self.createFormat(c["video"], c["format"])
+    
+    def setVideo(self, newVideo):
+        c = self.getConfig()
+        c["video"] = newVideo
+
+        yt = self.getYoutubedlConfig()
+        yt["format"] = self.createFormat(c["video"], c["format"])
+
+    def createFormat(self, videoOpt, formatOpt):
+        return "%s[ext=%s]" % (videoOpt, formatOpt)

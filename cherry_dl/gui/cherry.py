@@ -77,11 +77,15 @@ class Cherry(QMainWindow, Ui_MainWindow):
         self.stackedWidget = QStackedWidget()
 
         # Create separate widgets (views) for stacked widget
-        self.homeWidget = HomeWidget(self.stackedWidget)
-        self.progressWidget = ProgressWidget(self.stackedWidget)
-        self.historyWidget = HistoryWidget(self.stackedWidget)
         self.configWidget = ConfigWidget(self.stackedWidget)
         self.configWidget.configCancelled.connect(self.changeDisplayToHome)
+        self.configWidget.configChanged.connect(self.changeConfigInHome)
+
+        self.homeWidget = HomeWidget(self.stackedWidget)
+        self.homeWidget.setConfig(self.configWidget.getConfig())
+
+        self.progressWidget = ProgressWidget(self.stackedWidget)
+        self.historyWidget = HistoryWidget(self.stackedWidget)
 
         self.stackedWidget.addWidget(self.homeWidget)
         self.stackedWidget.addWidget(self.progressWidget)
@@ -103,6 +107,10 @@ class Cherry(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def changeDisplayToHome(self):
         self.stackedWidget.setCurrentIndex(0)
+    
+    @pyqtSlot()
+    def changeConfigInHome(self):
+        self.homeWidget.setConfig(self.configWidget.getConfig())
 
     def closeEvent(self, closeEvent):
         QCoreApplication.exit()

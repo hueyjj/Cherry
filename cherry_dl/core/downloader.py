@@ -80,6 +80,11 @@ class Downloader(QRunnable):
 
         with youtube_dl.YoutubeDL(self.opts) as ytdl:
             ytdl.download([self.url])
+        
+        # FIXME Handle error when format doesn't exist. 
+        # Example would be https://www.youtube.com/watch?v=3SDBTVcBUVs
+        # with format option of "best[ext=m4a]" is invalid
+        # but format option of "best[ext=mp4]" is valid
 
         # Return to last location
         os.chdir(last)
