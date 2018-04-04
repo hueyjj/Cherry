@@ -123,6 +123,17 @@ class HomeWidget(QWidget, Ui_Home):
     def urlChanged(self, text):
         # FIXME validate url later
         self.startMetaDownloadThread()
+    
+    # FIXME Find a better way to parse unicode to html format
+    def convertDescToHtml(self, desc):
+        html = "<p>"
+        for char in desc:
+            if char == '\n':
+                print('new line found')
+                html += "</p><p>"
+            html += char
+        html += "</p>"
+        return html
 
     @pyqtSlot(dict)
     def loadMetaInfo(self, meta):
@@ -134,11 +145,7 @@ class HomeWidget(QWidget, Ui_Home):
         self.title.setText(meta["title"])
 
         # Description
-        self.description.setText("""
-        <p>
-        %s
-        </p>
-        """ % meta["description"])
+        self.description.setText(self.convertDescToHtml(meta["description"]))
 
         # Image (load from a byte array)
         pic = QPixmap()
