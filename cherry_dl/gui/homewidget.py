@@ -55,6 +55,7 @@ from ..core.downloader import (
     MetaInformation,
     Downloader,
 )
+from ..resources import resources
 
 
 class HomeWidget(QWidget, Ui_Home):
@@ -69,9 +70,7 @@ class HomeWidget(QWidget, Ui_Home):
         self.userInput.textChanged.connect(self.urlChanged)
         self.download.clicked.connect(self.startDownload)
         
-        dirname = os.path.dirname(__file__)
-        loadingGifPath = os.path.join(dirname, "../../icons/loading.gif")
-        self.loadingGif = QMovie(loadingGifPath)
+        self.loadingGif = QMovie(":/icons/loading.gif")
 
         self.description.setReadOnly(True)
     

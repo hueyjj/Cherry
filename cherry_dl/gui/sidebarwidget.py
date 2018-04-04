@@ -55,6 +55,7 @@ from PyQt5.QtGui import (
 from ..core.utils import (
     resourcePath,
 )
+from ..resources import resources
 
 
 class SidebarWidget(QWidget):
@@ -69,10 +70,10 @@ class SidebarWidget(QWidget):
         self.actionWidth = 90
         self.actionHeight = 90
 
-        homeIconPath = resourcePath("../../icons/cherry.png")
-        progressIconPath = resourcePath("../../icons/tree.png")
-        historyIconPath = resourcePath("../../icons/roots.png")
-        configIconPath = resourcePath("../../icons/gear-white.png")
+        homeIconPath = ":/icons/cherry.png"
+        progressIconPath = ":/icons/tree.png"
+        historyIconPath = ":/icons/roots.png"
+        configIconPath = ":/icons/gear-white.png"
         self.homeAction = QAction(QIcon(homeIconPath), "Home", self)
         self.progressAction = QAction(QIcon(progressIconPath), "Progress", self)
         self.historyAction = QAction(QIcon(historyIconPath), "History", self)

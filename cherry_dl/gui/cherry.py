@@ -63,7 +63,7 @@ from ..core.downloader import (
 from ..core.utils import (
     resourcePath
 )
-
+from ..resources import resources
 
 class Cherry(QMainWindow, Ui_MainWindow):
     """ Main window that holds the main layout """
@@ -101,7 +101,7 @@ class Cherry(QMainWindow, Ui_MainWindow):
         # Apparently not needed anymore
         #self.setMinimumWidth(self.stackedWidget.width() + self.sidebar.width() + 10)
 
-        self.windowIcon = QIcon(resourcePath("../../icons/cherry.png"))
+        self.windowIcon = QIcon(":/icons/cherry.png")
         self.setWindowIcon(self.windowIcon)
         self.setWindowTitle("cherry-dl")
 

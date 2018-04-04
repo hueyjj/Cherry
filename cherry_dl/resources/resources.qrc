@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="/" >
+    <file>../../icons/cherry.ico</file>
+    <file>../../icons/cherry.png</file>
+    <file>../../icons/gear-white.png</file>
+    <file>../../icons/gear.png</file>
+    <file>../../icons/loading.gif</file>
+    <file>../../icons/roots.png</file>
+    <file>../../icons/tree.png</file>
+  </qresource>
+</RCC>
