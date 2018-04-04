@@ -1,0 +1,5 @@
+- Added ffmpeg and atomic parsley as dependencies
+- Add progress capabilities
+- Add history capabilities
+- Refactor to make code neater and resolve some FIXMEs before proceeding
+- Add stylesheets to make the program less ugly
