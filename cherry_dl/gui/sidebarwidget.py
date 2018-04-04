@@ -42,7 +42,6 @@ from PyQt5.QtWidgets import (
     QStyle,
     QStyleOption,
 )
-
 from PyQt5.QtGui import (
     QIcon,
     QCursor,
@@ -51,6 +50,10 @@ from PyQt5.QtGui import (
     QPainter,
     QFont,
     QColor,
+)
+
+from ..core.utils import (
+    resourcePath,
 )
 
 
@@ -66,11 +69,10 @@ class SidebarWidget(QWidget):
         self.actionWidth = 90
         self.actionHeight = 90
 
-        dirname = os.path.dirname(__file__)
-        homeIconPath = os.path.join(dirname, "../../icons/cherry.png")
-        progressIconPath = os.path.join(dirname, "../../icons/tree.png")
-        historyIconPath = os.path.join(dirname, "../../icons/roots.png")
-        configIconPath = os.path.join(dirname, "../../icons/gear-white.png")
+        homeIconPath = resourcePath("../../icons/cherry.png")
+        progressIconPath = resourcePath("../../icons/tree.png")
+        historyIconPath = resourcePath("../../icons/roots.png")
+        configIconPath = resourcePath("../../icons/gear-white.png")
         self.homeAction = QAction(QIcon(homeIconPath), "Home", self)
         self.progressAction = QAction(QIcon(progressIconPath), "Progress", self)
         self.historyAction = QAction(QIcon(historyIconPath), "History", self)

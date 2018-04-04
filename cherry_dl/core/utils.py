@@ -1,6 +1,18 @@
 import os
+import sys
 import json
 
+# Modified version of https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile
+def resourcePath(relativePath):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        basePath = sys._MEIPASS
+    except Exception:
+        print("No sys._MEIPASS found for %s" % relativePath)
+        basePath = os.path.dirname(__file__)
+
+    return os.path.join(basePath, relativePath)
 
 class Config(object):
     homeDir = os.path.expanduser('~')

@@ -60,6 +60,9 @@ from ..core.downloader import (
     MetaInformation,
     Downloader,
 )
+from ..core.utils import (
+    resourcePath
+)
 
 
 class Cherry(QMainWindow, Ui_MainWindow):
@@ -98,9 +101,7 @@ class Cherry(QMainWindow, Ui_MainWindow):
         # Apparently not needed anymore
         #self.setMinimumWidth(self.stackedWidget.width() + self.sidebar.width() + 10)
 
-        dirname = os.path.dirname(__file__)
-        windowIconPath = os.path.join(dirname, "../../icons/cherry.png")
-        self.windowIcon = QIcon(windowIconPath)
+        self.windowIcon = QIcon(resourcePath("../../icons/cherry.png"))
         self.setWindowIcon(self.windowIcon)
         self.setWindowTitle("cherry-dl")
 
