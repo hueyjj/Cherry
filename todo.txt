@@ -1,3 +1,4 @@
+- Remove unused imports
 - Added ffmpeg and atomic parsley as dependencies
     - FIXME For some reason, when we downloading using prod version, ffmpeg/atomicparsely will briefly show the console window. 
     Find a way to remove the console window such as passing in some flags?
