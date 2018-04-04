@@ -3,6 +3,7 @@ import sys
 import json
 
 # Modified version of https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile
+# FIXME Remove this later. Not used anymore since we started to use Qt's resource path
 def resourcePath(relativePath):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
