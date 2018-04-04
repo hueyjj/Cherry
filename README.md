@@ -1,4 +1,4 @@
-# cherry-dl [cherry](https://raw.githubusercontent.com/hueyjj/cherry-dl/master/icons/cherry.PNG)
+# cherry-dl ![cherry](https://raw.githubusercontent.com/hueyjj/cherry-dl/master/icons/cherry.PNG)
 A youtube-dl gui application.
 
 ![0.1.0 home](https://raw.githubusercontent.com/hueyjj/cherry-dl/master/screenshots/home.PNG)
