@@ -1,7 +1,11 @@
 # Cherry
 A youtube-dl gui application.
 
-# Virtualenv
+![0.1.0 home](https://raw.githubusercontent.com/hueyjj/cherry-dl/master/screenshots/home.PNG)
+
+![0.1.0 config](https://raw.githubusercontent.com/hueyjj/cherry-dl/master/screenshots/config.PNG)
+
+# Virtualenv (developing)
 Create virtualenv
 ```
 virtualenv ~/.virtualenvs/cherry-dl
@@ -27,6 +31,12 @@ Deactivate virtualenv (when in virtualenv)
 deactivate
 ```
 
+# Running (developing)
+```
+cd cherry-dl
+python cherry_dl
+```
+
 # Building (workflow)
 1. Make UI with QT Creator
 
@@ -34,14 +44,21 @@ deactivate
     ```
     ./build_ui.sh
     ```
-2. Use Pyinstaller to convert python to windows executable
+2. Build resources 
+
+    a. Generate python code for resources
+    ```
+    ./build_resources.sh
+    ```
+3. Use Pyinstaller to convert Python application to windows executable
     ```
     ./build_cherry-dl.sh
     ```
-3. Use Inno setup to create installer for executable
+    The resulting binary and related program files can be found in path/to/cherry-dl/dist/cherry-dl/, which can be distributed as is.
 
-# Running
-```
-cd cherry-dl
-python cherry_dl
-```
+    At this point, the program can be run by running the cherry-dl.exe in path/to/cherry-dl/dist/cherry-dl/
+ 
+
+4. (Extra) Use Inno Setup Compiler to create installer for the exe and its related files
+
+    A script (InnoSetupScript_cherry-dl.iss) is provided as an example of how it should it look like (note: my script will not work on other system since it uses absolute path). The ideal method when building the installer program is to create it using the setup wizard provided by Inno Setup Compiler.
